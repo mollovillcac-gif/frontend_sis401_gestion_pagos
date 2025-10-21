@@ -103,4 +103,11 @@ router.beforeEach(async (to) => {
     }
 });
 
+router.beforeResolve(() => {
+    const ae = document.activeElement;
+    // Si hay algo enfocado, lo desenfocamos antes de montar la siguiente vista
+    if (ae && typeof ae.blur === 'function') {
+        ae.blur();
+    }
+});
 export default router;

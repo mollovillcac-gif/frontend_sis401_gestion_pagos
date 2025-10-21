@@ -97,9 +97,9 @@ router.beforeEach(async (to) => {
     const authStore = useAuthStore();
 
     if (authRequired && !getTokenFromLocalStorage()) {
-        if (authStore) authStore.logout();
-        authStore.returnUrl = to.fullPath;
-        return '/auth/login';
+        authStore.clearSession(); // limpia sin navegar
+        authStore.returnUrl = to.fullPath; // recuerda a dónde quería ir
+        return { name: 'login', replace: true }; // navega seguro
     }
 });
 
